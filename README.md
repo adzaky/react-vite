@@ -1,69 +1,83 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite Custom Template
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a custom template for building modern React applications with TypeScript and Vite, featuring:
 
-Currently, two official plugins are available:
+- **PNPM** as the recommended package manager
+- **Tailwind CSS** for utility-first styling
+- **Prettier** with the Tailwind CSS Prettier plugin for consistent code formatting and class sorting
+- **shadcn/ui** for accessible, customizable UI components
+- **React Router (Data APIs)** for advanced routing and data loading
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Fast development with Vite and HMR
+- Type-safe React with TypeScript
+- Tailwind CSS configured and ready to use
+- Prettier auto-formats code and sorts Tailwind classes
+- shadcn/ui components installed and configured
+- React Router set up in Data APIs mode
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ESLint Configuration
+
+For production-ready linting, enable type-aware rules:
 
 ```js
+// eslint.config.js
 export default tseslint.config([
   globalIgnores(["dist"]),
   {
     files: ["**/*.{ts,tsx}"],
     extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs["recommended-latest"],
+      reactRefresh.configs.vite,
     ],
     languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
+      ecmaVersion: 2020,
+      globals: globals.browser,
     },
   },
 ]);
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Prettier Configuration
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+Prettier is set up with the Tailwind CSS plugin to automatically sort classes:
 
-export default tseslint.config([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```json
+{
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "printWidth": 120,
+  "tabWidth": 2,
+  "singleQuote": false,
+  "arrowParens": "always",
+  "plugins": ["prettier-plugin-tailwindcss"]
+}
+```
+
+## Tailwind CSS
+
+Tailwind is preconfigured. Edit `src/index.css` to customize your design system.
+
+## shadcn/ui
+
+shadcn/ui is installed. Use the CLI to add components as needed:
+
+```sh
+pnpm dlx shadcn@latest add button
+```
+
+## React Router (Data APIs)
+
+React Router is set up using the Data APIs (`createBrowserRouter`, loaders, actions). See [`src/App.tsx`](./src/App.tsx) for examples.
+
+---
+
+Start building your app with:
+
+```sh
+pnpm install
+pnpm dev
 ```
