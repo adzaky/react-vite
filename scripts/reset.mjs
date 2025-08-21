@@ -111,7 +111,7 @@ if (!ok) {
 const tmp = await fsp.mkdtemp(path.join(os.tmpdir(), "template-"));
 try {
   console.log("🐙 Cloning template (shallow)...");
-  run("git", ["clone", "--depth=1", "--branch", TEMPLATE_BRANCH, TEMPLATE_REPO, tmp]);
+  run("git", ["clone", "--branch", TEMPLATE_BRANCH, TEMPLATE_REPO, tmp]);
 
   // ---------- OPTIONAL: replace .git ----------
   if (REPLACE_GIT) {
